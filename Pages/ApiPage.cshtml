@@ -1,0 +1,13 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+namespace Test003.Pages
+{
+     public class ApiPageModel : PageModel
+    {
+        public IActionResult OnGet()
+        {
+            var data = new { Message = "Hello from the backend!" };
+            return new JsonResult(data);
+        }
+    }
+}

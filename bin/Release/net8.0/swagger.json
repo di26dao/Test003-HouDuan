@@ -1,0 +1,110 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Test003, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "userRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserRole"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "userRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserRole"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "UserRole": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roleId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "role": {
+          "$ref": "#/definitions/Role"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
