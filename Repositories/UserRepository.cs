@@ -45,5 +45,14 @@ namespace Test003.Repositories
                 return await connection.QueryFirstOrDefaultAsync<string>(sql, new { RoleId = roleId });
             }
         }
+
+        async Task<int> IUserRepository.selectUser()
+        {
+            string sql = "SELECT COUNT(*) FROM Users";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryFirstOrDefaultAsync<int>(sql);
+            }
+        }
     }
 }

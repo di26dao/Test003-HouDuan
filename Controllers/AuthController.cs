@@ -2,6 +2,7 @@
 using Test003.Models;
 using Test003.Services;
 using System.Threading.Tasks;
+using SqlSugar;
 
 namespace Test003.Controllers
 {
@@ -17,7 +18,7 @@ namespace Test003.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User user)
+        public async Task<IActionResult> login([FromBody] User user)
         {
             var (success, token, userId, roleName) = await _userService.Login(user.Username, user.Password);
             if (!success)
@@ -26,6 +27,14 @@ namespace Test003.Controllers
             }
 
             return Ok(new { Token = token, UserId = userId, RoleName = roleName });
+        }
+        [HttpPost("select")]
+        public async Task<IActionResult> select([FromBody] User user)
+        {
+
+            var count = _userService.selectUser();
+
+            return Ok(count);
         }
 
     }

@@ -8,6 +8,6 @@ namespace Test003.Repositories
         Task<User> GetUserByUsernameAndPassword(string username, string password);
         Task<int> GetRoleIdByUserId(int userId);
         Task<string> GetRoleNameByRoleId(int roleId);
-        
+        Task<int> selectUser();
     }
 }

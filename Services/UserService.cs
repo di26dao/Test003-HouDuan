@@ -59,5 +59,10 @@ namespace Test003.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        async Task<int> IUserService.selectUser()
+        {
+            return await _userRepository.selectUser();
+        }
     }
 }
