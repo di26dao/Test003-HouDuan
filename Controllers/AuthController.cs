@@ -29,10 +29,10 @@ namespace Test003.Controllers
             return Ok(new { Token = token, UserId = userId, RoleName = roleName });
         }
         [HttpPost("select")]
-        public async Task<IActionResult> select([FromBody] User user)
+        public async Task<IActionResult> select()
         {
 
-            var count = _userService.selectUser();
+            var count = await _userService.selectUser();
 
             return Ok(count);
         }
