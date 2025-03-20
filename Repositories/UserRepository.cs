@@ -84,7 +84,7 @@ namespace Test003.Repositories
 
        async Task<bool> IUserRepository.InsertUserRole(int id)
         {
-            string sql = "INSERT INTO UserRole (UserId,RoleId) VALUES (@UserId,@RoleId);";
+            string sql = "INSERT INTO UserRole (UserId,RoleId) VALUES (@UserId,4);";
             using (var connection = new SqlConnection(_connectionString))
             {
                 return await connection.QueryFirstOrDefaultAsync<bool>(sql);
