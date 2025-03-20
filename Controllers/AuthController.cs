@@ -28,6 +28,37 @@ namespace Test003.Controllers
 
             return Ok(new { Token = token, UserId = userId, RoleName = roleName });
         }
+        [HttpPost("SignUp")]
+        public async Task<IActionResult> SignUp([FromBody] User user)
+        {
+            var type = false;
+            if(user.Username!=null && user.Password!=null && user.Phone != null)
+            {
+              var count= await _userService.selectUserByUserName(user.Username);
+                if (count == 0)
+                {
+                   type= await _userService.InsertUser(user.Username, user.Password, user.Phone);
+                    if (type)
+                    {
+                        return Ok(new { type });
+                    }
+                    else
+                    {
+                        return Ok(new { type });
+                    }
+                }
+                else
+                {
+                    return Ok(new { type });
+                }
+            }
+            else
+            {
+                return Ok(new { type });
+            }
+            
+
+        }
         [HttpPost("select")]
         public async Task<IActionResult> select()
         {
