@@ -186,3 +186,4 @@ D:\test003_qhdtx\Test003\Test003\obj\Debug\net8.0\ref\Test003.dll
 D:\test003_qhdtx\Test003\Test003\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\test003_qhdtx\Test003\Test003\bin\Debug\net8.0\Dapper.dll
 D:\test003_qhdtx\Test003\Test003\bin\Debug\net8.0\SqlSugar.dll
+D:\test003_qhdtx\Test003\Test003\obj\Debug\net8.0\Test003.sourcelink.json
