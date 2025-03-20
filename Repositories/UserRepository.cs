@@ -60,7 +60,7 @@ namespace Test003.Repositories
             string sql = "SELECT COUNT(*) FROM Users WHERE UserName = @UserName";
             using (var connection = new SqlConnection(_connectionString))
             {
-                return await connection.QueryFirstOrDefaultAsync<int>(sql);
+                return await connection.QueryFirstOrDefaultAsync<int>(sql, new { UserName = username });
             }
         }
 
@@ -69,7 +69,9 @@ namespace Test003.Repositories
             string sql = "INSERT INTO Users (Username,Password,Phone) VALUES (@UserName,@Password,@Phone);";
             using (var connection = new SqlConnection(_connectionString))
             {
-                return await connection.QueryFirstOrDefaultAsync<bool>(sql);
+                var parameters = new { UserName = username, Password = password, Phone = phone };
+                int rowsAffected = await connection.ExecuteAsync(sql, parameters);
+                return rowsAffected > 0;
             }
         }
 
@@ -78,16 +80,36 @@ namespace Test003.Repositories
             string sql = "SELECT Id FROM Users WHERE UserName = @UserName";
             using (var connection = new SqlConnection(_connectionString))
             {
-                return await connection.QueryFirstOrDefaultAsync<int>(sql);
+                return await connection.QueryFirstOrDefaultAsync<int>(sql, new { UserName = username });
             }
         }
 
-       async Task<bool> IUserRepository.InsertUserRole(int id)
+        async Task<bool> IUserRepository.InsertUserRole(int id)
         {
-            string sql = "INSERT INTO UserRole (UserId,RoleId) VALUES (@UserId,4);";
+            try
+            {
+                string sql = "INSERT INTO UserRoles (UserId, RoleId) VALUES (@UserId, 4);";
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    var parameters = new { UserId = id };
+                    int rowsAffected = await connection.ExecuteAsync(sql, parameters);
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // 记录异常信息
+                Console.WriteLine($"InsertUserRole failed: {ex.Message}");
+                return false;
+            }
+        }
+
+        async Task<bool> IUserRepository.DeleteUser(int id)
+        {
+            string sql = "DELETE FROM User WHERE UserId=@UserId;";
             using (var connection = new SqlConnection(_connectionString))
             {
-                return await connection.QueryFirstOrDefaultAsync<bool>(sql);
+                return await connection.QueryFirstOrDefaultAsync<bool>(sql, new { UserId = id });
             }
         }
     }

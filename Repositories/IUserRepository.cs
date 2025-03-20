@@ -13,5 +13,6 @@ namespace Test003.Repositories
         Task<bool> InsertUser(string username,string password,string phone);
         Task<int> selectUserId(string username);
         Task<bool> InsertUserRole(int id);
+        Task<bool> DeleteUser(int id);
     }
 }

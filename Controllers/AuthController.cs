@@ -47,6 +47,10 @@ namespace Test003.Controllers
                         {
                             return Ok(new { type2 });
                         }
+                        else
+                        {
+                           await _userService.DeleteUser(UserId);
+                        }
                         
                     }
                     else

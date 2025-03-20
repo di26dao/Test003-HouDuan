@@ -84,5 +84,10 @@ namespace Test003.Services
         {
            return await _userRepository.InsertUserRole(id);
         }
+
+       async Task<bool> IUserService.DeleteUser(int id)
+        {
+            return await _userRepository.DeleteUser(id);
+        }
     }
 }
