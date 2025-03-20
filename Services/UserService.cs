@@ -74,5 +74,15 @@ namespace Test003.Services
         {
             return await _userRepository.InsertUser(username, password, phone);
         }
+
+       async Task<int> IUserService.selectUserId(string username)
+        {
+            return await _userRepository.selectUserId(username);
+        }
+
+       async Task<bool> IUserService.InsertUserRole(int id)
+        {
+           return await _userRepository.InsertUserRole(id);
+        }
     }
 }

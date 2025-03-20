@@ -32,6 +32,7 @@ namespace Test003.Controllers
         public async Task<IActionResult> SignUp([FromBody] User user)
         {
             var type = false;
+            var type2 = false;
             if(user.Username!=null && user.Password!=null && user.Phone != null)
             {
               var count= await _userService.selectUserByUserName(user.Username);
@@ -40,24 +41,30 @@ namespace Test003.Controllers
                    type= await _userService.InsertUser(user.Username, user.Password, user.Phone);
                     if (type)
                     {
-                        return Ok(new { type });
+                     var UserId =  await _userService.selectUserId(user.Username);
+                     type2=  await _userService.InsertUserRole(UserId);
+                        if (type2)
+                        {
+                            return Ok(new { type2 });
+                        }
+                        
                     }
                     else
                     {
-                        return Ok(new { type });
+                        return Ok(new { type2 });
                     }
                 }
                 else
                 {
-                    return Ok(new { type });
+                    return Ok(new { type2 });
                 }
             }
             else
             {
-                return Ok(new { type });
+                return Ok(new { type2 });
             }
-            
 
+            return Ok(new { type2 });
         }
         [HttpPost("select")]
         public async Task<IActionResult> select()

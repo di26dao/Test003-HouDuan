@@ -72,5 +72,23 @@ namespace Test003.Repositories
                 return await connection.QueryFirstOrDefaultAsync<bool>(sql);
             }
         }
+
+       async Task<int> IUserRepository.selectUserId(string username)
+        {
+            string sql = "SELECT Id FROM Users WHERE UserName = @UserName";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryFirstOrDefaultAsync<int>(sql);
+            }
+        }
+
+       async Task<bool> IUserRepository.InsertUserRole(int id)
+        {
+            string sql = "INSERT INTO UserRole (UserId,RoleId) VALUES (@UserId,@RoleId);";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryFirstOrDefaultAsync<bool>(sql);
+            }
+        }
     }
 }

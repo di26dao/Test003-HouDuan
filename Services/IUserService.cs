@@ -9,5 +9,7 @@ namespace Test003.Services
         Task<(bool success, string token, int userId, string roleName)> Login(string username, string password);
         Task<int> selectUserByUserName(string username);
         Task<bool> InsertUser(string username, string password, string phone);
+        Task<int> selectUserId(string username);
+        Task<bool> InsertUserRole(int id);
     }
 }

@@ -10,6 +10,8 @@ namespace Test003.Repositories
         Task<string> GetRoleNameByRoleId(int roleId);
         Task<int> selectUser();
         Task<int> selectUserByUserName(string username);
-        Task<int> InsertUser(string username,string password,string phone);
+        Task<bool> InsertUser(string username,string password,string phone);
+        Task<int> selectUserId(string username);
+        Task<bool> InsertUserRole(int id);
     }
 }
