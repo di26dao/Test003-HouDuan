@@ -31,44 +31,44 @@ namespace Test003.Controllers
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp([FromBody] User user)
         {
-            var type = false;
-            var type2 = false;
-            if(user.Username!=null && user.Password!=null && user.Phone != null)
+            ApiResponse result;
+
+            if (user.Username != null && user.Password != null && user.Phone != null)
             {
-              var count= await _userService.selectUserByUserName(user.Username);
+                var count = await _userService.selectUserByUserName(user.Username);
                 if (count == 0)
                 {
-                   type= await _userService.InsertUser(user.Username, user.Password, user.Phone);
-                    if (type)
+                    var insertUserSuccess = await _userService.InsertUser(user.Username, user.Password, user.Phone);
+                    if (insertUserSuccess)
                     {
-                     var UserId =  await _userService.selectUserId(user.Username);
-                     type2=  await _userService.InsertUserRole(UserId);
-                        if (type2)
+                        var userId = await _userService.selectUserId(user.Username);
+                        var insertUserRoleSuccess = await _userService.InsertUserRole(userId);
+                        if (insertUserRoleSuccess)
                         {
-                            return Ok(new { type2 });
+                            result = new ApiResponse(true, 200, "注册成功");
                         }
                         else
                         {
-                           await _userService.DeleteUser(UserId);
+                            await _userService.DeleteUser(userId);
+                            result = new ApiResponse(false, 500, "插入用户角色失败");
                         }
-                        
                     }
                     else
                     {
-                        return Ok(new { type2 });
+                        result = new ApiResponse(false, 500, "插入用户信息失败");
                     }
                 }
                 else
                 {
-                    return Ok(new { type2 });
+                    result = new ApiResponse(false, 409, "用户名已存在");
                 }
             }
             else
             {
-                return Ok(new { type2 });
+                result = new ApiResponse(false, 400, "请求参数不完整");
             }
 
-            return Ok(new { type2 });
+            return Ok(result);
         }
         [HttpPost("select")]
         public async Task<IActionResult> select()
